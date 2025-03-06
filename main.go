@@ -59,6 +59,8 @@ func main() {
 	// Example: minimal /join endpoint
 	r.HandleFunc("/join", handleJoin).Methods("POST")
 
+	r.HandleFunc("/", HomeHandler).Methods("GET")
+
 	// WebSocket endpoint
 	r.HandleFunc("/ws", handleWebSocket)
 
@@ -137,4 +139,8 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 
 	go client.WritePump()
 	go client.ReadPump(hub)
+}
+
+func HomeHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "Welcome to Gorilla Mux!")
 }
